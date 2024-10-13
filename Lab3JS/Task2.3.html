@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Екранна Клавіатура з Перемиканням Розкладки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .keyboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .input-area {
+            width: 80%;
+            height: 100px;
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+        .key {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border: 1px solid #999;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .key:hover {
+            background-color: #d0d0d0;
+        }
+        .control-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .control-btn:hover {
+            background-color: #45a049;
+        }
+        .clear-btn {
+            background-color: #ff4d4d;
+        }
+        .clear-btn:hover {
+            background-color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="keyboard-container">
+    <textarea id="output" class="input-area" placeholder="Наберіть текст тут..."></textarea>
+
+    <div class="keyboard" id="keyboard"></div>
+
+    <button class="control-btn" id="toggleLayout">Alt+Shift (Перемикання розкладки)</button>
+    <button class="control-btn clear-btn" onclick="clearText()">Очистити поле</button>
+</div>
+
+<script>
+    let digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    let ukrLetters = ['а', 'б', 'в', 'г', 'д', 'е', 'є', 'ж', 'з', 'и', 
+                      'і', 'ї', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р',
+                      'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ю', 'я'];
+
+    let engLetters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
+                      'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 
+                      'x', 'c', 'v', 'b', 'n', 'm'];
+
+    let currentLayout = 'ukr'; 
+
+    let outputField = document.getElementById('output');
+    let keyboard = document.getElementById('keyboard');
+    let toggleLayoutButton = document.getElementById('toggleLayout');
+
+    function createButton(value) {
+        let button = document.createElement('div');
+        button.classList.add('key');
+        button.textContent = value;
+        button.addEventListener('click', () => {
+            outputField.value += value;
+        });
+        keyboard.appendChild(button);
+    }
+
+    function renderKeyboard() {
+        keyboard.innerHTML = ''; 
+
+        digits.forEach(createButton);
+
+        if (currentLayout === 'ukr') {
+            ukrLetters.forEach(createButton);
+        } else {
+            engLetters.forEach(createButton);
+        }
+    }
+
+    toggleLayoutButton.addEventListener('click', () => {
+        currentLayout = currentLayout === 'ukr' ? 'eng' : 'ukr';
+        renderKeyboard(); 
+    });
+
+    function clearText() {
+        outputField.value = '';
+    }
+
+    renderKeyboard();
+</script>
+
+</body>
+</html>

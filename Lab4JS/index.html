@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест загальних знань</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .question { margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Тест загальних знань</h1>
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Яка планета Сонячної системи найбільша?</p>
+            <input type="radio" name="q1" value="0"> Марс<br>
+            <input type="radio" name="q1" value="1"> Юпітер<br>
+            <input type="radio" name="q1" value="0"> Сатурн<br>
+            <input type="radio" name="q1" value="0"> Уран<br>
+        </div>
+
+        <div class="question">
+            <p>2. Хто написав "Ромео і Джульєтта"?</p>
+            <input type="radio" name="q2" value="0"> Чарльз Діккенс<br>
+            <input type="radio" name="q2" value="0"> Джейн Остін<br>
+            <input type="radio" name="q2" value="1"> Вільям Шекспір<br>
+            <input type="radio" name="q2" value="0"> Марк Твен<br>
+        </div>
+
+        <div class="question">
+            <p>3. Які з цих елементів є благородними газами? (виберіть два)</p>
+            <input type="checkbox" name="q3" value="1"> Гелій<br>
+            <input type="checkbox" name="q3" value="0"> Кисень<br>
+            <input type="checkbox" name="q3" value="1"> Неон<br>
+            <input type="checkbox" name="q3" value="0"> Хлор<br>
+        </div>
+
+        <div class="question">
+            <p>4. Які з цих тварин є ссавцями? (виберіть два)</p>
+            <input type="checkbox" name="q4" value="1"> Дельфін<br>
+            <input type="checkbox" name="q4" value="0"> Крокодил<br>
+            <input type="checkbox" name="q4" value="1"> Кажан<br>
+            <input type="checkbox" name="q4" value="0"> Черепаха<br>
+        </div>
+
+        <div class="question">
+            <p>5. Яка найдовша річка у світі?</p>
+            <select name="q5">
+                <option value="0">Амазонка</option>
+                <option value="1">Ніл</option>
+                <option value="0">Янцзи</option>
+                <option value="0">Міссісіпі</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <p>6. Які з цих країн розташовані в Африці? (виберіть два)</p>
+            <select name="q6" multiple>
+                <option value="1">Кенія</option>
+                <option value="0">Перу</option>
+                <option value="1">Марокко</option>
+                <option value="0">Таїланд</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <p>7. Яке число йде після 7 в послідовності чисел Фібоначчі?</p>
+            <input type="text" name="q7">
+        </div>
+
+        <button type="button" onclick="finishQuiz()">Завершити тестування</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        function finishQuiz() {
+            const form = document.getElementById('quizForm');
+            const results = [];
+            let totalScore = 0;
+
+            for (let i = 1; i <= 2; i++) {
+                const radios = form[`q${i}`];
+                let score = 0;
+                let answer = '';
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        score = parseInt(radio.value);
+                        answer = radio.nextSibling.textContent.trim();
+                        break;
+                    }
+                }
+                results.push({ question: i, answer, score });
+                totalScore += score;
+            }
+
+            for (let i = 3; i <= 4; i++) {
+                const checkboxes = form.querySelectorAll(`input[name="q${i}"]:checked`);
+                let score = 0;
+                let answers = [];
+                if (checkboxes.length === 2) {
+                    score = Array.from(checkboxes).filter(cb => cb.value === '1').length;
+                }
+                checkboxes.forEach(cb => answers.push(cb.nextSibling.textContent.trim()));
+                results.push({ question: i, answer: answers.join(', '), score });
+                totalScore += score;
+            }
+
+            const q5 = form.q5;
+            results.push({
+                question: 5,
+                answer: q5.options[q5.selectedIndex].text,
+                score: parseInt(q5.value)
+            });
+            totalScore += parseInt(q5.value);
+
+            const q6 = form.q6;
+            let q6Answers = [];
+            let q6Score = 0;
+            for (let option of q6.selectedOptions) {
+                q6Answers.push(option.text);
+                q6Score += parseInt(option.value);
+            }
+            if (q6.selectedOptions.length > 2) q6Score = 0;
+            results.push({ question: 6, answer: q6Answers.join(', '), score: q6Score });
+            totalScore += q6Score;
+
+            const q7 = form.q7.value.trim().toLowerCase();
+            const q7Score = q7 === '13' ? 1 : 0;
+            results.push({ question: 7, answer: q7, score: q7Score });
+            totalScore += q7Score;
+
+            let resultsHtml = '<h2>Результати тестування</h2>';
+            resultsHtml += '<table><tr><th>Питання</th><th>Відповідь</th><th>Бал</th></tr>';
+            results.forEach(result => {
+                resultsHtml += `<tr><td>${result.question}</td><td>${result.answer}</td><td>${result.score}</td></tr>`;
+            });
+            resultsHtml += '</table>';
+            resultsHtml += `<p>Загальний бал: ${totalScore} з 8 можливих</p>`;
+
+            document.getElementById('results').innerHTML = resultsHtml;
+        }
+    </script>
+</body>
+</html>

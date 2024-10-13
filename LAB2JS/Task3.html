@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генерація таблиці</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Генерація таблиці згідно формули A<sub>ij</sub> = i - j</h2>
+
+    <label for="rows">Кількість рядків:</label>
+    <input type="number" id="rows" min="1" value="3">
+    <br>
+    <label for="cols">Кількість стовпців:</label>
+    <input type="number" id="cols" min="1" value="3">
+    <br>
+    <button onclick="generateTable()">Створити таблицю</button>
+    
+    <div id="table-container"></div>
+    
+    <p id="result"></p>
+
+    <script>
+        function generateTable() {
+            const rows = parseInt(document.getElementById('rows').value);
+            const cols = parseInt(document.getElementById('cols').value);
+            const tableContainer = document.getElementById('table-container');
+            const resultContainer = document.getElementById('result');
+
+            tableContainer.innerHTML = '';
+            resultContainer.textContent = '';
+
+            const table = document.createElement('table');
+            let sum = 0;
+
+            for (let i = 1; i <= rows; i++) {
+                const row = document.createElement('tr');
+                for (let j = 1; j <= cols; j++) {
+                    const cell = document.createElement('td');
+                    const value = i - j;  
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                    
+                    sum += value;
+                }
+                table.appendChild(row);
+            }
+
+            tableContainer.appendChild(table);
+
+            resultContainer.textContent = `Сума всіх елементів таблиці: ${sum}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розрахунок площ геометричних фігур</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        label, input { display: block; margin: 10px 0; }
+        .result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Розрахунок площі геометричної фігури</h1>
+
+    <!-- Введення номеру варіанту -->
+    <label for="variant">Введіть номер варіанту (остача від ділення):</label>
+    <input type="number" id="variant" placeholder="Введіть свій номер" />
+
+    <!-- Введення параметрів фігури -->
+    <label for="param1">Перший параметр (довжина сторони, основа, тощо):</label>
+    <input type="number" id="param1" placeholder="Введіть перший параметр" />
+
+    <label for="param2" class="second-param" style="display: none;">Другий параметр (висота, радіус, тощо):</label>
+    <input type="number" id="param2" class="second-param" placeholder="Введіть другий параметр" style="display: none;" />
+
+    <!-- Виведення результату -->
+    <div class="result">Площа: <span id="result">0</span></div>
+
+    <script>
+        const variantInput = document.getElementById('variant');
+        const param1Input = document.getElementById('param1');
+        const param2Input = document.getElementById('param2');
+        const resultOutput = document.getElementById('result');
+        const secondParamLabel = document.querySelector('.second-param');
+
+        function calculateArea() {
+            const variant = parseInt(variantInput.value) % 10;  
+            const param1 = parseFloat(param1Input.value);
+            const param2 = parseFloat(param2Input.value);
+            let area = 0;
+
+            switch(variant) {
+                case 1:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = 0.5 * param1 * param2;
+                    break;
+                case 2:  
+                    secondParamLabel.style.display = 'none';
+                    param2Input.style.display = 'none';
+                    area = param1 * param1;
+                    break;
+                case 3:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = param1 * param2;
+                    break;
+                case 4:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = param1 * param2;
+                    break;
+                case 5:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = (param1 * param2) / 2;
+                    break;
+                case 6:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = ((param1 + param2) / 2) * param2;
+                    break;
+                case 7:  
+                    secondParamLabel.style.display = 'none';
+                    param2Input.style.display = 'none';
+                    area = 'Формула складна, введіть додаткові дані';
+                    break;
+                case 8:  
+                    secondParamLabel.style.display = 'none';
+                    param2Input.style.display = 'none';
+                    area = Math.PI * param1 * param1;
+                    break;
+                case 9:  
+                    secondParamLabel.style.display = 'block';
+                    param2Input.style.display = 'block';
+                    area = Math.PI * param1 * param2;
+                    break;
+                default:
+                    area = 'Невідомий варіант';
+            }
+
+            resultOutput.textContent = isNaN(area) ? 'Неправильні дані' : area.toFixed(2);
+        }
+
+        variantInput.addEventListener('input', calculateArea);
+        param1Input.addEventListener('input', calculateArea);
+        param2Input.addEventListener('input', calculateArea);
+    </script>
+    
+</body>
+</html>

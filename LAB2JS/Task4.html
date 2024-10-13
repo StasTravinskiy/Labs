@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дослідження console.log()</title>
+</head>
+<body>
+
+    <h1>Відкрийте Console у DevTools для перегляду результатів</h1>
+
+    <script>
+        let a = 10;
+        let b = 3;
+        console.log("Остача від ділення", a, "на", b, ":", a % b);
+
+        let c = 10;
+        let d = 2;
+        console.log("Чи остача від ділення", c, "на", d, "дорівнює 0?", c % d === 0);
+
+        let arr = [5, 10, 15];
+        console.log("Елементи масиву: %d, %d, %d", arr[0], arr[1], arr[2]);  
+        console.log("Це масив: %s", arr);  
+        console.log("Елемент під індексом 2: %d", arr[2]);
+
+    </script>
+    
+</body>
+</html>

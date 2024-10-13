@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Збірник завдань</title>
+    <script>
+        function showStudentInfo() {
+            const firstName = "Станіслав";
+            const middleName = "Андрійович";
+            const lastName = "Травінський";
+            document.getElementById('studentName').innerHTML = `${lastName} ${firstName} ${middleName}`;
+        }
+
+        function showBirthInfo() {
+            alert("Дата народження: 21 жовтня 2004 р.\nМісце народження: Івано-Франківськ, Україна");
+        }
+
+        function calculateFormula() {
+            const x = parseFloat(prompt("Введіть значення x:"));
+            const z = parseFloat(prompt("Введіть значення z:"));
+
+            if (!isNaN(x) && !isNaN(z)) {
+                const F = -3 * x * z + Math.sqrt(Math.pow(x, 3));
+                alert(`Результат обчислення: F = ${F}`);
+            } else {
+                alert("Будь ласка, введіть коректні числові значення для x та z.");
+            }
+        }
+
+        function handleFocus() {
+            document.getElementById("outputField").value = "Текстове поле фокусується.";
+        }
+
+        function handleChange() {
+            document.getElementById("outputField").value = "Текст у полі змінено.";
+        }
+
+        function calculateF() {
+            const x = parseFloat(document.getElementById("inputX").value);
+            const y = parseFloat(document.getElementById("inputY").value);
+            let F;
+
+            if (isNaN(x) || isNaN(y)) {
+                alert("Будь ласка, введіть числові значення для x та y.");
+                return;
+            }
+
+            if (x !== 0) {
+                F = x / y;
+            } else if (x !== 0 || y > 3 / 2) {
+                F = (2 * x) / y;
+            } else {
+                F = -Math.pow(x, 3) + 2 * Math.pow(y, 2);
+            }
+
+            document.getElementById("resultFormula").innerHTML = `Результат: F = ${F}`;
+        }
+
+        function factorial(n) {
+            return (n <= 1) ? 1 : n * factorial(n - 1);
+        }
+
+        function calculateSum() {
+            const x = parseFloat(document.getElementById("inputX").value);
+            const y = parseFloat(document.getElementById("inputY").value);
+            let sum = 0;
+
+            if (isNaN(x) || isNaN(y)) {
+                alert("Будь ласка, введіть числові значення для x та y.");
+                return;
+            }
+
+            for (let i = 0; i <= 8; i++) {
+                const term = Math.pow(-1, i) * (12 * y / (2 * x) - Math.pow(x, 2) * Math.pow(y, 2) * (i + 1)) / factorial(i);
+                sum += term;
+            }
+
+            document.getElementById("resultSum").innerHTML = `Результат суми ряду: ${sum}`;
+        }
+    </script>
+</head>
+<body onload="showStudentInfo()">
+    <h1>Збірник завдань</h1>
+
+    <p>Прізвище, ім’я, по батькові: <span id="studentName"></span></p>
+    
+    <button onclick="showBirthInfo()">Показати дату та місце народження</button>
+    <br><br>
+
+    <button onclick="calculateFormula()">Розрахувати F = -3xz + √x^3</button>
+    <br><br>
+
+    <!-- Поля для введення значень x і y для формули з розгалуженням -->
+    <h2>Розрахунок F за умовною формулою</h2>
+    <label for="inputX">Введіть значення x:</label>
+    <input type="text" id="inputX">
+    <br><br>
+
+    <label for="inputY">Введіть значення y:</label>
+    <input type="text" id="inputY">
+    <br><br>
+
+    <button onclick="calculateF()">Обчислити F</button>
+    <p id="resultFormula"></p>
+
+    <!-- Форма з текстовими полями -->
+    <h2>Обробка подій</h2>
+    <form>
+        <!-- Перше текстове поле, для обробки подій onFocus та onChange -->
+        <label for="inputField">Поле для введення:</label>
+        <input type="text" id="inputField" onfocus="handleFocus()" onchange="handleChange()">
+        <br><br>
+
+        <!-- Друге текстове поле для виведення повідомлень -->
+        <label for="outputField">Результат події:</label>
+        <input type="text" id="outputField" readonly>
+    </form>
+
+    <!-- Поля для введення значень x і y для обчислення суми ряду -->
+    <h2>Розрахунок суми ряду</h2>
+    <button onclick="calculateSum()">Обчислити суму ряду</button>
+    <p id="resultSum"></p>
+
+</body>
+</html>

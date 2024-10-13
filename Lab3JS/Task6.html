@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ієрархічне Дерево</title>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+        li {
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .nested {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .caret::before {
+            content: "►";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .caret-down::before {
+            content: "▼";
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ієрархічне Дерево</h1>
+
+<ul id="tree">
+    <li><span class="caret">Fruits</span>
+        <ul class="nested">
+            <li>Apple</li>
+            <li>Pineapple</li>
+            <li>Appricot</li>
+            <li>Pear</li>
+            <li>Lemon</li>
+        </ul>
+    </li>
+    <li><span class="caret">Vegetables</span>
+        <ul class="nested">
+            <li>Potatoes</li>
+            <li>Beetroot</li>
+            <li>Carrots</li>
+            <li>Pear</li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+    let togglers = document.getElementsByClassName("caret");
+
+    for (let i = 0; i < togglers.length; i++) {
+        togglers[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>
+
+</body>
+</html>

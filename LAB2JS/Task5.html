@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дослідження console</title>
+</head>
+<body>
+
+    <h1>Дослідження роботи методів console</h1>
+
+    <script>
+        console.info("Це інформаційне повідомлення за допомогою console.info()");
+
+        console.warn("Це попередження за допомогою console.warn()");
+
+        console.error("Це повідомлення про помилку за допомогою console.error()");
+
+        let obj = {name: "Ivan", age: 25, occupation: "developer"};
+        console.dir(obj);
+
+        let element = document.querySelector('h1');
+        console.dirxml(element);
+
+        console.time("Timer");
+        for (let i = 0; i < 1000000; i++) {
+        }
+        console.timeEnd("Timer");
+
+        console.profile("Performance Profile");
+        for (let i = 0; i < 1000000; i++) {
+        }
+        console.profileEnd("Performance Profile");
+
+        let x = 10;
+        console.assert(x === 5, "x не дорівнює 5, а дорівнює", x);
+
+    </script>
+    
+</body>
+</html>

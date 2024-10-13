@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арифметичні Завдання</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .task, .score, .result {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .input-area {
+            width: 100px;
+            height: 30px;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="task" id="task"></div>
+    <input type="text" class="input-area" id="answerInput" placeholder="Ваша відповідь">
+    <br>
+    <button class="btn" id="checkBtn" onclick="checkAnswer()">Перевірити</button>
+    <button class="btn" id="nextBtn" onclick="nextTask()" disabled>Наступне завдання</button>
+
+    <div class="result" id="result"></div>
+    <div class="score" id="score"></div>
+
+<script>
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    let totalQuestions = 5;
+
+    const operations = ['+', '-', '*', '/'];
+
+    function getRandomNumber() {
+        return Math.floor(Math.random() * 10); 
+    }
+
+    function getRandomOperation() {
+        return operations[Math.floor(Math.random() * operations.length)]; 
+    }
+
+    let num1, num2, operation, correctAnswer;
+
+    function generateTask() {
+        num1 = getRandomNumber();
+        num2 = getRandomNumber();
+        operation = getRandomOperation();
+
+        if (operation === '/' && num2 === 0) {
+            num2 = 1;
+        }
+
+        switch (operation) {
+            case '+':
+                correctAnswer = num1 + num2;
+                break;
+            case '-':
+                correctAnswer = num1 - num2;
+                break;
+            case '*':
+                correctAnswer = num1 * num2;
+                break;
+            case '/':
+                correctAnswer = (num1 / num2).toFixed(2); 
+                break;
+        }
+
+        document.getElementById('task').textContent = `Обчисліть: ${num1} ${operation} ${num2}`;
+        document.getElementById('answerInput').value = ''; 
+        document.getElementById('result').textContent = ''; 
+        document.getElementById('checkBtn').disabled = false; 
+        document.getElementById('nextBtn').disabled = true; 
+    }
+
+    function checkAnswer() {
+        let userAnswer = document.getElementById('answerInput').value;
+
+        if (userAnswer === '') {
+            alert('Введіть відповідь!');
+            return;
+        }
+
+        if (parseFloat(userAnswer) === parseFloat(correctAnswer)) {
+            document.getElementById('result').textContent = 'Правильно!';
+            correctAnswers++;
+        } else {
+            document.getElementById('result').textContent = `Помилка, правильна відповідь: ${correctAnswer}`;
+        }
+
+        document.getElementById('score').textContent = `Рахунок: ${correctAnswers} із ${currentQuestion + 1}`;
+
+        document.getElementById('checkBtn').disabled = true;
+        document.getElementById('nextBtn').disabled = false;
+
+        currentQuestion++;
+        
+        if (currentQuestion >= totalQuestions) {
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('checkBtn').disabled = true;
+            document.getElementById('result').textContent += ' Всі завдання виконані!';
+        }
+    }
+
+    function nextTask() {
+        if (currentQuestion < totalQuestions) {
+            generateTask();
+        }
+    }
+
+    generateTask();
+</script>
+
+</body>
+</html>

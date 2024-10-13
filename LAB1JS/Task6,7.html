@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інформація про товар</title>
+    <script>
+        // Масиви з товарами, кількістю та цінами
+        const products = ["Пилка", "Перфоратор", "Плитка"];
+        const quantities = [10, 8, 300];
+        const prices = [500, 1250, 25];
+
+        // Змінна для збереження поточного індексу товару
+        let currentIndex = -1;
+
+        // Функція для виведення кількості та вартості товару
+        function fun1() {
+            const selectedProduct = document.getElementById("productSelect").value;
+            currentIndex = products.indexOf(selectedProduct);
+
+            if (currentIndex !== -1) {
+                document.getElementById("quantityOutput").innerHTML = `Наявна кількість: ${quantities[currentIndex]}`;
+                document.getElementById("priceOutput").innerHTML = `Вартість за одиницю: ${prices[currentIndex]} грн`;
+            }
+        }
+
+        // Функція для розрахунку загальної вартості товару
+        function fun2() {
+            if (currentIndex !== -1) {
+                const total = quantities[currentIndex] * prices[currentIndex];
+                document.getElementById("totalOutput").innerHTML = `Загальна сума: ${total} грн`;
+            } else {
+                document.getElementById("totalOutput").innerHTML = "Будь ласка, спочатку оберіть товар.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Інформація про товар</h1>
+
+    <!-- Випадаючий список для вибору товару -->
+    <label for="productSelect">Оберіть товар:</label>
+    <select id="productSelect">
+        <option value="" disabled selected>Виберіть товар</option>
+        <option value="Пилка">Пилка</option>
+        <option value="Перфоратор">Перфоратор</option>
+        <option value="Плитка">Плитка</option>
+    </select>
+    <br><br>
+
+    <!-- Кнопка для виведення кількості та вартості товару -->
+    <button onclick="fun1()">Наявна кількість і вартість</button>
+    <br><br>
+
+    <!-- Поля для виведення кількості та вартості -->
+    <p id="quantityOutput"></p>
+    <p id="priceOutput"></p>
+    <br>
+
+    <!-- Кнопка для виведення загальної вартості товару -->
+    <button onclick="fun2()">Загальна сума</button>
+    <br><br>
+
+    <!-- Поле для виведення загальної вартості -->
+    <p id="totalOutput"></p>
+</body>
+</html>
