@@ -18,7 +18,6 @@
 
     <h1>Перевірка наявності товарів</h1>
 
-    <!-- Випадаючий список для вибору товару з очищенням загальної суми при зміні вибору -->
     <label for="product-select">Оберіть товар:</label>
     <select id="product-select" onchange="resetTotalAmount()">
         <option value="">-- Оберіть товар --</option>
@@ -37,30 +36,25 @@
     <p id="total-amount"></p>
 
     <script>
-        // Масиви з товарами, їхньою кількістю та вартістю
-        const products = ["Молоко", "Масло", "Морква"];
+        const products = ["Пилка", "Перфоратор", "Плитка"];
         const quantities = [200, 5, 300];
         const prices = [10, 500, 10];
 
         let currentProductIndex = -1;
 
         function resetTotalAmount() {
-            // Очищає загальну суму при зміні вибору товару
             document.getElementById("total-amount").innerText = '';
         }
 
         function fun1() {
-            // Отримання вибраного індексу товару з випадаючого списку
             currentProductIndex = document.getElementById("product-select").value;
 
             if (currentProductIndex !== "") {
-                // Перетворюємо індекс у число та виводимо кількість і ціну
                 currentProductIndex = parseInt(currentProductIndex);
                 document.getElementById("quantity").innerText = `Наявна кількість: ${quantities[currentProductIndex]}`;
                 document.getElementById("price").innerText = `Вартість за одиницю: ${prices[currentProductIndex]} грн`;
-                resetTotalAmount(); // Очищення загальної суми після показу кількості та ціни
+                resetTotalAmount(); 
             } else {
-                // Повідомлення, якщо товар не вибрано
                 document.getElementById("quantity").innerText = 'Товар не обрано';
                 document.getElementById("price").innerText = '';
                 document.getElementById("total-amount").innerText = '';
@@ -69,11 +63,9 @@
 
         function fun2() {
             if (currentProductIndex !== -1 && currentProductIndex !== "") {
-                // Обчислення та вивід загальної суми для обраного товару
                 const totalAmount = quantities[currentProductIndex] * prices[currentProductIndex];
                 document.getElementById("total-amount").innerText = `Загальна сума: ${totalAmount} грн`;
             } else {
-                // Повідомлення, якщо товар не вибрано
                 document.getElementById("total-amount").innerText = 'Спершу оберіть товар за допомогою кнопки "Наявна кількість і вартість".';
             }
         }
