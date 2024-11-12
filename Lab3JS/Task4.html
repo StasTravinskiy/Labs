@@ -5,53 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Перегляд зображень</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        #imageContainer {
             text-align: center;
-            margin: 20px;
+            margin-top: 20px;
         }
-        img {
-            width: 400px;
+        #imageContainer img {
+            max-width: 100%;
             height: auto;
-            margin-top: 20px;
         }
-        .buttons {
-            margin-top: 20px;
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .nav-buttons button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Перегляд зображень</h1>
-    <img id="image-viewer" src="" alt="Зображення" />
+<div id="imageContainer">
+    <img id="displayedImage" src="" alt="Зображення">
+</div>
 
-    <div class="buttons">
-        <button onclick="showPreviousImage()">Назад</button>
-        <button onclick="showNextImage()">Вперед</button>
-    </div>
+<div class="nav-buttons">
+    <button onclick="prevImage()">Назад</button>
+    <button onclick="nextImage()">Вперед</button>
+</div>
 
-    <script>
-        let images = [
-            'https://webmaestro.com.ua/img/blog/20201016122530_.jpeg',
-            'https://storozhynets.info/wp-content/uploads/2024/03/IHfxjOcnOo.webp',
-            'https://web-promo.ua/wp-content/uploads/2021/10/greg-rakozy-ompaz-dn-9i-unsplash-1.jpg',
-            'https://images.pexels.com/photos/2377965/pexels-photo-2377965.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-        ];
+<script>
+    // Масив шляхів до зображень
+    let images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
 
-        let currentIndex = 0;
+    // Поточний індекс зображення
+    let currentIndex = 0;
 
-        document.getElementById("image-viewer").src = images[currentIndex];
+    // Функція для відображення зображення за індексом
+    function showImage(index) {
+        const imageElement = document.getElementById('displayedImage');
+        imageElement.src = images[index];
+    }
 
-        function showNextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            document.getElementById("image-viewer").src = images[currentIndex];
-        }
+    // Показати перше зображення при завантаженні сторінки
+    showImage(currentIndex);
 
-        function showPreviousImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            document.getElementById("image-viewer").src = images[currentIndex];
-        }
-    </script>
+    // Функція для перемикання на наступне зображення
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length; // Циклічність
+        showImage(currentIndex);
+    }
+
+    // Функція для перемикання на попереднє зображення
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length; // Циклічність
+        showImage(currentIndex);
+    }
+</script>
 
 </body>
 </html>
