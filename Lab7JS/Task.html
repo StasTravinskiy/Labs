@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота 7</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;  /* центрування контенту */
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;  /* заокруглені кути */
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        /* інші стилі... */
+    </style>
+<body>
+    <h1>Лабораторна робота 7: Робота з рядками</h1>
+
+    <!-- Завдання 1 -->
+    <div class="section">
+        <h2>Завдання 1</h2>
+        
+        <!-- 1.1 -->
+        <div class="input-group">
+            <h3>1.1 Обернений порядок чисел</h3>
+            <input type="text" id="numbers" placeholder="Введіть числа через пробіл">
+            <button onclick="reverseNumbers()">Обернути</button>
+            <div id="reverseResult" class="result"></div>
+        </div>
+
+        <!-- 1.2 -->
+        <div class="input-group">
+            <h3>1.2 Видалення нулів</h3>
+            <input type="text" id="numbersWithZeros" placeholder="Введіть числа через пробіл">
+            <button onclick="removeZeros()">Видалити нулі</button>
+            <div id="noZerosResult" class="result"></div>
+        </div>
+
+        <!-- 1.3 -->
+        <div class="input-group">
+            <h3>1.3 Обернення рядка</h3>
+            <input type="text" id="textToReverse" placeholder="Введіть текст">
+            <button onclick="reverseText()">Обернути</button>
+            <div id="reverseTextResult" class="result"></div>
+        </div>
+
+        <!-- 1.4 -->
+        <div class="input-group">
+            <h3>1.4 Заміна слів</h3>
+            <input type="text" id="textToReplace" value="Я не люблю морозиво" readonly>
+            <button onclick="replaceWords()">Замінити</button>
+            <div id="replaceResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Завдання 2 -->
+    <div class="section">
+        <h2>Завдання 2</h2>
+
+        <!-- 2.1 -->
+        <div class="input-group">
+            <h3>2.1 Порівняння довжини рядків</h3>
+            <input type="text" id="string1" placeholder="Перший рядок">
+            <input type="text" id="string2" placeholder="Другий рядок">
+            <button onclick="compareStrings()">Порівняти</button>
+            <div id="compareResult" class="result"></div>
+        </div>
+
+        <!-- 2.2 -->
+        <div class="input-group">
+            <h3>2.2 Пошук символу</h3>
+            <input type="text" id="searchString" placeholder="Введіть текст">
+            <input type="text" id="searchChar" placeholder="Символ для пошуку" maxlength="1">
+            <button onclick="findChar()">Знайти</button>
+            <div id="findCharResult" class="result"></div>
+        </div>
+
+        <!-- 2.3 -->
+        <div class="input-group">
+            <h3>2.3 Перший символ у верхній регістр</h3>
+            <input type="text" id="capitalizeString" placeholder="Введіть текст">
+            <button onclick="capitalizeFirst()">Перетворити</button>
+            <div id="capitalizeResult" class="result"></div>
+        </div>
+
+        <!-- 2.4 -->
+        <div class="input-group">
+            <h3>2.4 Підрахунок голосних</h3>
+            <input type="text" id="vowelsString" placeholder="Введіть текст">
+            <button onclick="countVowels()">Підрахувати</button>
+            <div id="vowelsResult" class="result"></div>
+        </div>
+
+        <!-- 2.5 -->
+        <div class="input-group">
+            <h3>2.5 Перевірка спаму</h3>
+            <input type="text" id="spamString" placeholder="Введіть текст">
+            <button onclick="checkSpam()">Перевірити</button>
+            <div id="spamResult" class="result"></div>
+        </div>
+
+        <!-- 2.6 -->
+        <div class="input-group">
+            <h3>2.6 Скорочення рядка</h3>
+            <input type="text" id="truncateString" placeholder="Введіть текст">
+            <input type="number" id="maxLength" placeholder="Максимальна довжина">
+            <button onclick="truncateText()">Скоротити</button>
+            <div id="truncateResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Завдання 3 -->
+    <div class="section">
+        <h2>Завдання 3</h2>
+
+        <!-- 3.1 -->
+        <div class="input-group">
+            <h3>3.1 Snake case to Camel case</h3>
+            <input type="text" id="snakeCase" placeholder="Введіть snake_case">
+            <button onclick="convertToCamelCase()">Конвертувати</button>
+            <div id="camelCaseResult" class="result"></div>
+        </div>
+
+        <!-- 3.2 -->
+        <div class="input-group">
+            <h3>3.2 Camel case to Snake case</h3>
+            <input type="text" id="camelCase" placeholder="Введіть camelCase">
+            <button onclick="convertToSnakeCase()">Конвертувати</button>
+            <div id="snakeCaseResult" class="result"></div>
+        </div>
+
+        <!-- 3.3 -->
+        <div class="input-group">
+            <h3>3.3 Заміна формату дат</h3>
+            <textarea id="dateText" rows="4" cols="50" placeholder="Введіть текст з датами у форматі yyyy/mm/dd"></textarea>
+            <button onclick="convertDates()">Конвертувати</button>
+            <div id="datesResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Завдання 1.1
+        function reverseNumbers() {
+            const input = document.getElementById('numbers').value;
+            const result = input.split(' ').reverse().join(' ');
+            document.getElementById('reverseResult').textContent = result;
+        }
+
+        // Завдання 1.2
+        function removeZeros() {
+            const input = document.getElementById('numbersWithZeros').value;
+            const result = input.split(' ').filter(num => num !== '0').join(' ');
+            document.getElementById('noZerosResult').textContent = result;
+        }
+
+        // Завдання 1.3
+        function reverseText() {
+            const input = document.getElementById('textToReverse').value;
+            const result = input.split('').reverse().join('');
+            document.getElementById('reverseTextResult').textContent = result;
+        }
+
+        // Завдання 1.4
+        function replaceWords() {
+            const input = document.getElementById('textToReplace').value;
+            const words = input.split(' ');
+            [words[1], words[2]] = [words[2], words[1]]; // міняємо місцями
+            const withCommas = words.join(',');
+            document.getElementById('replaceResult').innerHTML = 
+                `a) ${words.join(' ')}<br>b) ${withCommas}`;
+        }
+
+        // Завдання 2.1
+        function compareStrings() {
+            const str1 = document.getElementById('string1').value;
+            const str2 = document.getElementById('string2').value;
+            let result;
+            if (str1.length > str2.length) result = 1;
+            else if (str1.length < str2.length) result = -1;
+            else result = 0;
+            document.getElementById('compareResult').textContent = result;
+        }
+
+        // Завдання 2.2
+        function findChar() {
+            const str = document.getElementById('searchString').value;
+            const char = document.getElementById('searchChar').value;
+            const indices = [];
+            let pos = str.indexOf(char);
+            while (pos !== -1) {
+                indices.push(pos);
+                pos = str.indexOf(char, pos + 1);
+            }
+            document.getElementById('findCharResult').textContent = 
+                `Індекси: ${indices.join(', ')}. Кількість входжень: ${indices.length}`;
+        }
+
+        // Завдання 2.3
+        function capitalizeFirst() {
+            const input = document.getElementById('capitalizeString').value;
+            const result = input.charAt(0).toUpperCase() + input.slice(1);
+            document.getElementById('capitalizeResult').textContent = result;
+        }
+
+        // Завдання 2.4
+        function countVowels() {
+            const input = document.getElementById('vowelsString').value;
+            const vowels = 'аеєиіїоуюяАЕЄИІЇОУЮЯaeiouyAEIOUY';
+            const count = input.split('').filter(char => vowels.includes(char)).length;
+            document.getElementById('vowelsResult').textContent = count;
+        }
+
+        // Завдання 2.5
+        function checkSpam() {
+            const input = document.getElementById('spamString').value.toLowerCase();
+            const spamWords = ['100% безкоштовно', 'збільшення продажів', 'тільки сьогодні', 'не видаляйте'];
+            const hasSpam = spamWords.some(word => input.includes(word.toLowerCase()));
+            document.getElementById('spamResult').textContent = hasSpam;
+        }
+
+        // Завдання 2.6
+        function truncateText() {
+            const input = document.getElementById('truncateString').value;
+            const maxLength = parseInt(document.getElementById('maxLength').value);
+            let result = input;
+            if (input.length > maxLength) {
+                result = input.slice(0, maxLength - 3) + '...';
+            }
+            document.getElementById('truncateResult').textContent = result;
+        }
+
+        // Завдання 3.1
+        function convertToCamelCase() {
+            const input = document.getElementById('snakeCase').value;
+            const result = input.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+            document.getElementById('camelCaseResult').textContent = result;
+        }
+
+        // Завдання 3.2
+        function convertToSnakeCase() {
+            const input = document.getElementById('camelCase').value;
+            const result = input.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+            document.getElementById('snakeCaseResult').textContent = result;
+        }
+
+        // Завдання 3.3
+        function convertDates() {
+            const input = document.getElementById('dateText').value;
+            const result = input.replace(/(\d{4})\/(\d{2})\/(\d{2})/g, '$3.$2.$1');
+            document.getElementById('datesResult').textContent = result;
+        }
+    </script>
+</body>
+</html>
