@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 10 - Task 2</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .hover-effect {
+            background-color: yellow;
+            transition: all 0.3s ease;
+        }
+    </style>
+    <script>
+    $(document).ready(function() {
+        $("p:first").text("DOM first!");
+        $("p:last").text("DOM last!");
+
+        $('div').hover(
+            function() { $(this).addClass('hover-effect'); },
+            function() { $(this).removeClass('hover-effect'); }
+        );
+    });
+    </script>
+</head>
+<body>
+    <p>Original first paragraph</p>
+    <div>Hover over this div</div>
+    <p>Original last paragraph</p>
+</body>
+</html>

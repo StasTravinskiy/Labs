@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 10 - Task 3</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .special-border { 
+            border: 3px solid red; 
+            background-color: lightpink; 
+        }
+        #image-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+        }
+        #hover-tooltip {
+            display: none;
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            bottom: 0;
+        }
+    </style>
+    <script>
+    $(document).ready(function() {
+        $('#special-div').bind('click', function() {
+            $(this).addClass('special-border');
+        }).bind('dblclick', function() {
+            $(this).removeClass('special-border');
+        });
+
+        $('#single-click-btn').bind('click', function() {
+            alert('Одинарний клік');
+        });
+
+        $('#double-click-btn').bind('dblclick', function() {
+            alert('Подвійний клік');
+        });
+
+        $('#show-image-text').click(function() {
+            $('#image-container').toggle();
+        });
+
+        $('#test-image').click(function() {
+            $(this).hide();
+        }).mouseover(function() {
+            $('#hover-tooltip').show();
+        }).mouseout(function() {
+            $('#hover-tooltip').hide();
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="special-div">Клікніть та подвійно клікніть</div>
+
+    <button id="single-click-btn">Одинарний клік</button>
+    <button id="double-click-btn">Подвійний клік</button>
+
+    <p id="show-image-text">Показати зображення</p>
+    <div id="image-container">
+        <img id="test-image" src="/LAB10JS/11111.jpeg" alt="Test Image" />
+        <div id="hover-tooltip">Підпис до зображення</div>
+    </div>
+</body>
+</html>

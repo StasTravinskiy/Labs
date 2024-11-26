@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 10 - Task 4</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("form").submit(function(event) {
+            if ($("input:first").val() == "correct") {
+                $("span").text("Перевіряєм...").show();
+                alert('Успішно!');
+                return true;
+            }
+            
+            $("span").text("Неправильно!").show().fadeOut(1000);
+            return false;
+        });
+    });
+    </script>
+</head>
+<body>
+    <p>Введіть в текстове поле слово 'correct'.</p>
+    
+    <form action="#">
+        <div>
+            <input type="text" />
+            <input type="submit" value="Надіслати" />
+        </div>
+    </form>
+    
+    <span></span>
+</body>
+</html>
