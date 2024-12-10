@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Демонстрація методів jQuery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="demo-container">
+        <input id="name-input" type="text" value="Початкове значення" data-custom="original">
+        <div id="output"></div>
+        <button onclick="demonstrateMethods()">Продемонструвати методи</button>
+    </div>
+
+    <script>
+    function demonstrateMethods() {
+        $('#output').html('<p>Цей вміст встановлено за допомогою .html()</p>');
+
+        $('#output').css({
+            'color': 'blue',
+            'font-weight': 'bold'
+        });
+
+        let inputValue = $('#name-input').val();
+        $('#output').append(`<p>Значення введення: ${inputValue}</p>`);
+
+        $('#name-input').attr('placeholder', 'Новий заповнювач');
+        $('#name-input').attr('data-custom', 'modified');
+
+        let customAttr = $('#name-input').attr('data-custom');
+        $('#output').append(`<p>Користувацький атрибут: ${customAttr}</p>`);
+
+        $('#name-input').removeAttr('data-custom');
+    }
+    </script>
+</body>
+</html>

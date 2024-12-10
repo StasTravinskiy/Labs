@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Фільтрація в jQuery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .special { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <button onclick="applyClassFilter()">Фільтрувати за класом</button>
+    <button onclick="applyEveryThirdFilter()">Фільтрувати кожен третій Li</button>
+
+    <ul class="items">
+        <li class="example">Елемент 1</li>
+        <li>Елемент 2</li>
+        <li class="example">Елемент 3</li>
+        <li>Елемент 4</li>
+        <li class="example">Елемент 5</li>
+        <li>Елемент 6</li>
+    </ul>
+
+    <script>
+    function applyClassFilter() {
+        $('.items .example')
+            .filter(function() {
+                return true;
+            })
+            .addClass('special')
+            .append(' (змінено)');
+    }
+
+    function applyEveryThirdFilter() {
+        $('.items li')
+            .filter(':nth-child(3n)')
+            .addClass('special')
+            .append(' (змінено)');
+    }
+    </script>
+</body>
+</html>

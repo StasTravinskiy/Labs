@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Утилітні методи jQuery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script>
+    $(document).ready(function() {
+        let result = '';
+
+        result += 'Містить: ' + 
+            $.contains(document.body, document.getElementById('result')) + '<br>';
+
+        $.data(document.body, 'test', 'Привіт Світ');
+        result += 'Збережені дані: ' + 
+            $.data(document.body, 'test') + '<br>';
+
+        let obj1 = {a: 1, b: 2};
+        let obj2 = {b: 3, c: 4};
+        let merged = $.extend({}, obj1, obj2);
+        result += 'Розширений об\'єкт: ' + 
+            JSON.stringify(merged) + '<br>';
+
+        let types = [
+            $.type(123),
+            $.type('рядок'),
+            $.type(true),
+            $.type({}),
+            $.type([])
+        ];
+        result += 'Типи: ' + types.join(', ') + '<br>';
+
+        result += 'Очищено: "' + 
+            $.trim('  привіт світ  ') + '"<br>';
+
+        $('#result').html(result);
+    });
+    </script>
+</body>
+</html>

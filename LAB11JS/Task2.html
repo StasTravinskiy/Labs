@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Демонстрація маніпуляцій jQuery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="original">Оригінальний вміст</div>
+        <button onclick="demonstrateManipulations()">Маніпулювати</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+    function demonstrateManipulations() {
+        $('#container').append('<div>Доданий вміст</div>');
+
+        $('<div class="highlight">Замінений вміст</div>').replaceAll('#original');
+
+        $('#container').width(function(index, currentWidth) {
+            return currentWidth + 50;
+        });
+
+        let pos = $('#container').position();
+        $('#result').html(`Позиція: Верх ${pos.top}, Ліво ${pos.left}`);
+    }
+    </script>
+</body>
+</html>

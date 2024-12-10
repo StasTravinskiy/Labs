@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Методи traversing в jQuery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <button onclick="demonstrateTraversing()">Продемонструвати traversing</button>
+        <ul id="list">
+            <li>Елемент 1</li>
+            <li>Елемент 2</li>
+            <li>Елемент 3</li>
+            <li>Елемент 4</li>
+        </ul>
+        <div id="result"></div>
+    </div>
+
+    <script>
+    function demonstrateTraversing() {
+        let output = '';
+
+        output += 'Метод add: ' + 
+            $('li').add('#container').length + '<br>';
+
+        output += 'Батьківський елемент списку: ' + 
+            $('li').parent().prop('id') + '<br>';
+
+        output += 'Результат addBack: ' + 
+            $('li').first().parent().addBack().length + '<br>';
+
+        output += 'Має дочірні елементи: ' + 
+            $('#container').has('li').length + '<br>';
+
+        let mappedItems = $('li').map(function() {
+            return $(this).text();
+        }).get();
+        output += 'Елементи з map: ' + mappedItems.join(', ') + '<br>';
+
+        $('#result').html(output);
+    }
+    </script>
+</body>
+</html>

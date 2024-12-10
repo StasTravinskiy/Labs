@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Анімації та Ефекти</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin: 10px;
+        }
+        .logo {
+            width: 200px;
+            height: 100px;
+            background-color: #007bff;
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Демонстрація jQuery Анімацій</h2>
+
+    <div>
+        <h3>Fade Ефекти</h3>
+        <button id="fadeInBtn">Fade In</button>
+        <button id="fadeOutBtn">Fade Out</button>
+        <button id="fadeToggleBtn">Fade Toggle</button>
+        <div id="fadeBox" class="box"></div>
+    </div>
+
+    <div>
+        <h3>Slide Ефекти</h3>
+        <button id="slideDownBtn">Slide Down</button>
+        <button id="slideUpBtn">Slide Up</button>
+        <button id="slideToggleBtn">Slide Toggle</button>
+        <div id="slideBox" class="box"></div>
+    </div>
+
+    <div>
+        <h3>Анімований Логотип</h3>
+        <div id="softwareLogo" class="logo">121 СПЗ</div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        $('#fadeInBtn').click(function() {
+            $('#fadeBox').fadeIn(1000);
+        });
+
+        $('#fadeOutBtn').click(function() {
+            $('#fadeBox').fadeOut(1000);
+        });
+
+        $('#fadeToggleBtn').click(function() {
+            $('#fadeBox').fadeToggle(500);
+        });
+
+        $('#slideDownBtn').click(function() {
+            $('#slideBox').slideDown(1000);
+        });
+
+        $('#slideUpBtn').click(function() {
+            $('#slideBox').slideUp(1000);
+        });
+
+        $('#slideToggleBtn').click(function() {
+            $('#slideBox').slideToggle(500);
+        });
+
+        $('#softwareLogo').click(function() {
+            $(this).animate({
+                width: '300px',
+                height: '150px',
+                fontSize: '24px',
+                backgroundColor: '#28a745'
+            }, {
+                duration: 1000,
+                easing: 'swing',
+                complete: function() {
+                    $(this).animate({
+                        width: '200px',
+                        height: '100px',
+                        fontSize: '16px',
+                        backgroundColor: '#007bff'
+                    }, {
+                        duration: 1000,
+                        easing: 'linear'
+                    });
+                }
+            });
+        });
+
+        let queue = $('#softwareLogo').queue();
+        console.log('Черга анімацій:', queue.length);
+
+        $('#softwareLogo').delay(500).animate({
+            opacity: 0.5
+        }, 500);
+
+        $('#softwareLogo').dequeue();
+    });
+    </script>
+</body>
+</html>
